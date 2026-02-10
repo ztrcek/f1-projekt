@@ -2,93 +2,40 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>F1 Home</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>F1 Dashboard</title>
+    <link rel="stylesheet" href="style.css">
 </head>
-<body class="p-4">
+<body>
+    <div class="container">
+        <h1>F1 Dashboard</h1>
 
-<h1 class="mb-4">F1 Dashboard</h1>
+        <div class="card">
+            <h2>Top 5 Drivers</h2>
+            <ul id="drivers"></ul>
+        </div>
 
-<div class="row">
-    <!-- Top 5 Driverjev -->
-    <div class="col-md-6">
-        <h3>Top 5 Drivers</h3>
-        <ul id="drivers-list" class="list-group"></ul>
+        <div class="card">
+            <h2>Top 5 Constructors</h2>
+            <ul id="constructors"></ul>
+        </div>
+
+        <div class="card">
+            <h2>Next Races</h2>
+            <ul id="next-races"></ul>
+        </div>
+
+        <div class="card">
+            <h2>Last Race Results</h2>
+            <ul id="last-results"></ul>
+        </div>
+
+        <div class="card">
+            <h2>News</h2>
+            <ul id="news"></ul>
+        </div>
     </div>
 
-    <!-- Top 5 Constructors -->
-    <div class="col-md-6">
-        <h3>Top 5 Constructors</h3>
-        <ul id="constructors-list" class="list-group"></ul>
-    </div>
-</div>
-
-<!-- Naslednje dirke -->
-<h3 class="mt-4">Next 3 Races</h3>
-<ul id="races-list" class="list-group mb-4"></ul>
-
-<!-- Zadnja dirka -->
-<h3>Last Race Results</h3>
-<ul id="last-race-list" class="list-group mb-4"></ul>
-
-<!-- Novice -->
-<h3>News</h3>
-<ul id="news-list" class="list-group"></ul>
-
-<script>
-async function loadHome() {
-    const response = await fetch("http://127.0.0.1:8000/home");
-    const data = await response.json();
-
-    // Top 5 Drivers
-    const driversList = document.getElementById("drivers-list");
-    data.drivers_top5.forEach(d => {
-        const li = document.createElement("li");
-        li.className = "list-group-item";
-        li.textContent = `${d.name} ${d.surname} (${d.nationality})`;
-        driversList.appendChild(li);
-    });
-
-    // Top 5 Constructors
-    const constructorsList = document.getElementById("constructors-list");
-    data.constructors_top5.forEach(c => {
-        const li = document.createElement("li");
-        li.className = "list-group-item";
-        li.textContent = c.name || "Team Name";
-        constructorsList.appendChild(li);
-    });
-
-    // Next 3 Races
-    const racesList = document.getElementById("races-list");
-    data.next_races.forEach(r => {
-        const li = document.createElement("li");
-        li.className = "list-group-item";
-        li.textContent = `${r.name} - ${r.date} ${r.time}`;
-        racesList.appendChild(li);
-    });
-
-    // Last race
-    const lastRaceList = document.getElementById("last-race-list");
-    data.last_race_results.forEach(r => {
-        const li = document.createElement("li");
-        li.className = "list-group-item";
-        li.textContent = `${r.position}. ${r.driver} - ${r.time}`;
-        lastRaceList.appendChild(li);
-    });
-
-    // News
-    const newsList = document.getElementById("news-list");
-    data.news.forEach(n => {
-        const li = document.createElement("li");
-        li.className = "list-group-item";
-        li.innerHTML = `<a href="${n.url}" target="_blank">${n.title}</a> (${n.source})`;
-        newsList.appendChild(li);
-    });
-}
-
-// Naloži podatke ob zagonu
-loadHome();
-</script>
-
+    <script src="script.js"></script>
 </body>
 </html>
